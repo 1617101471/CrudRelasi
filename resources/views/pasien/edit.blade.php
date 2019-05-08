@@ -31,6 +31,7 @@
                             </span>
                         @endif
 			  		</div>
+
 			  		<div class="form-group {{ $errors->has('dokter_id') ? ' has-error' : '' }}">
 			  			<label class="control-label">Dokter</label>	
 			  			<select name="dokter_id" class="form-control">
@@ -41,6 +42,20 @@
 			  			@if ($errors->has('dokter_id'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('dokter_id') }}</strong>
+                            </span>
+                        @endif
+			  		</div>
+
+			  		<div class="form-group {{ $errors->has('obat') ? ' has-error' : '' }}">
+			  			<label class="control-label">obat</label>	
+			  			<select name="obat[]" class="form-control js-example-basic-multiple" multiple="multiple">
+			  				@foreach($obats as $data)
+			  				<option value="{{ $data->id }}"{{ (in_array($data->id, $selected)) ? ' selected="selected"' : '' }}>{{ $data->nama_obat }}</option>
+			  				@endforeach
+			  			</select>
+			  			@if ($errors->has('obat'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('obat') }}</strong>
                             </span>
                         @endif
 			  		</div>

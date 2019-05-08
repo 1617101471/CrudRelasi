@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\dokter;
 use App\pasien;
+use App\obat;
 use Session;
 
 class PasienController extends Controller
@@ -33,7 +34,8 @@ class PasienController extends Controller
     public function create()
     {
         $posts = dokter::all();
-        return view('pasien.create',compact('posts'));
+        $obats = obat::all();
+        return view('pasien.create',compact('posts', 'obats'));
     }
 
     /**
@@ -47,13 +49,15 @@ class PasienController extends Controller
         $this->validate($request,[
             'nama' => 'required|',
             'penyakit' => 'required|',
-            'dokter_id' => 'required'
+            'dokter_id' => 'required',
+            'obat'=>'required'
         ]);
         $mhs = new pasien;
         $mhs->nama = $request->nama;
         $mhs->penyakit = $request->penyakit;
         $mhs->dokter_id = $request->dokter_id;
         $mhs->save();
+        $mhs->obat()->attach($request->obat);
         Session::flash("flash_notification", [
         "level"=>"success",
         "message"=>"Berhasil menyimpan <b>$mhs->nama</b>"
@@ -84,7 +88,9 @@ class PasienController extends Controller
         $mhs = pasien::findOrFail($id);
         $dokter = dokter::all();
         $selecteddokter = pasien::findOrFail($id)->dokter_id;
-        return view('pasien.edit',compact('mhs','dokter','selecteddokter'));
+        $selected = $mhs->obat->pluck('id')->toArray();
+        $obat = obat::all();
+        return view('pasien.edit',compact('mhs','dokter','selecteddokter', 'obat'));
     }
 
     /**
@@ -106,6 +112,7 @@ class PasienController extends Controller
         $mhs->penyakit = $request->penyakit;
         $mhs->dokter_id = $request->dokter_id;
         $mhs->save();
+        $mhs->obat()->sync($request->obat);
         Session::flash("flash_notification", [
         "level"=>"success",
         "message"=>"Berhasil mengedit <b>$mhs->nama</b>"

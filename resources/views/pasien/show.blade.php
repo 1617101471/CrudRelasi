@@ -22,6 +22,10 @@
 			  			<label class="control-label">Dokter</label>
 						<input type="text" name="dokter" class="form-control" value="{{ $posts->dokter->nama }}"  readonly>
 			  		</div>
+
+			  		<div class="form-group">
+                    <strong>Obat</strong><br>@foreach($posts->obat as $data){{ $data->nama_obat }}, @endforeach
+			  		</div>
 			  	</div>
 			</div>	
 		</div>

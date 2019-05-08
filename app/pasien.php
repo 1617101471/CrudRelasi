@@ -16,8 +16,14 @@ class pasien extends Model
     {
     	return $this->BelongsTo('App\dokter','dokter_id');
     }
+    
     public function perawat()
     {
     	return $this->hasOne('App\perawat','pasien_id');
+    }
+
+    public function obat()
+    {
+        return $this->belongsToMany('App\obat', 'administrasis', 'id_pasien', 'id_obat');
     }
 }

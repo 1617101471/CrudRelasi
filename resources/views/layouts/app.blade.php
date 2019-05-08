@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -37,8 +39,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('dokter.index') }}">Dokter</a></li>
-                         <li><a href="{{ route('pasien.index') }}">Pasien</a></li>
-                         <li><a href="{{ route('perawat.index') }}">Perawat</a></li>
+                        <li><a href="{{ route('pasien.index') }}">Pasien</a></li>
+                        <li><a href="{{ route('perawat.index') }}">Perawat</a></li>
+                        <li><a href="{{ route('obat.index') }}">Obat</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -78,5 +81,14 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/select2.js') }}"></script>
+    <script src="{{ asset('js/select2.full.js') }}"></script>
+    <script src="{{ asset('js/select2.full.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+    </script>
 </body>
 </html>
